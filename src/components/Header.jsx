@@ -1,12 +1,57 @@
-import React from 'react'
+import React from "react";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { removeUser } from "../utils/redux/reduxslice/UserSlice";
+import { auth } from "../utils/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { addUser } from "../utils/redux/reduxslice/UserSlice";
+import { signOut } from "firebase/auth";
+import { Netflix_Logo } from "../utils/Constants";
 
 const Header = () => {
-  return (
-    <div className='absolute p-2 m-2 bg-gradient-to-b from-black z-10' >
-        <img className='w-40' src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-        alt='NetflixLogo' />
-    </div>
-  )
-}
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const User = useSelector((store) => store.User);
+  console.log(User);
 
-export default Header
+  useEffect(() => {
+    const unsubcribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user);
+        const { uid, email } = user.uid;
+        dispatch(addUser({ user: uid, emailId: email }));
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+
+    return () => unsubcribe();
+  }, []);
+
+  const handelSignOut = () => {
+    signOut(auth)
+      .then(() => {
+        navigate("/");
+        dispatch(removeUser());
+      })
+      .catch((error) => {});
+  };
+
+  return (
+    <div className=" w-screen absolute p-2 m-2 bg-gradient-to-b from-black justify-between flex z-20">
+      <img className="w-40" src={Netflix_Logo} alt="NetflixLogo" />
+
+      <div className="flex">
+        <img />
+        <button onClick={handelSignOut} className="bg-red-500">
+          SignOut
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default Header;
