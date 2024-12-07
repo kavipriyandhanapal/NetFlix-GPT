@@ -36,7 +36,8 @@
   - Movie Cards Component 
   - Fetching TMDB Link to Display The  Movie Crads By adding The Movie Poster Path
   - Using Custome Hooks For All The Movie Lists 
-  
+  - Created Multi Language Select Option
+
 
 
 

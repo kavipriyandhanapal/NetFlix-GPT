@@ -1,4 +1,4 @@
-import { fetchOptions } from "../utils/Constants";
+import { fetchOptions } from "../utils/Constants/Constants";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { addMovies } from "../utils/redux/reduxslice/NewMovieList";

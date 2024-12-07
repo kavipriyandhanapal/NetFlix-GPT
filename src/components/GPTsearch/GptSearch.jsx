@@ -1,6 +1,6 @@
 import React from "react";
 import GptSearchBar from "./GptSearchBar";
-import { BG_IMAGE_URL } from "../../utils/Constants";
+import { BG_IMAGE_URL } from "../../utils/Constants/Constants";
 
 const GptSearch = () => {
   return (

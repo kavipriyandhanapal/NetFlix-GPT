@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { fetchOptions } from "../utils/Constants";
+import { fetchOptions } from "../utils/Constants/Constants";
 import { useDispatch } from "react-redux";
 import { addMovieTrailer } from "../utils/redux/reduxslice/NewMovieList";
 

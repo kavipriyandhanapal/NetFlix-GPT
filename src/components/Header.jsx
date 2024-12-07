@@ -7,20 +7,26 @@ import { auth } from "../utils/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import { addUser } from "../utils/redux/reduxslice/UserSlice";
 import { signOut } from "firebase/auth";
-import { Netflix_Logo } from "../utils/Constants";
+import { Netflix_Logo } from "../utils/Constants/Constants";
 import { toggleGptPageView } from "../utils/redux/reduxslice/GPTSlice";
+import { LANGUAGE_OPTIONS } from "../utils/Constants/LanguageConstants";
+import { changeLanguage } from "../utils/redux/reduxslice/ConfigSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const User = useSelector((store) => store.User);
+  const GptSearch = useSelector((store) => store.GPT.showGptpage);
   console.log(User);
 
-  const handleShowSearchView =()=>{    
+  const handleShowSearchView = () => {
     dispatch(toggleGptPageView());
-    console.log('hi');
-    
-  }
+    console.log("hi");
+  };
+
+  const handleChangeLanguage = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
 
   useEffect(() => {
     const unsubcribe = onAuthStateChanged(auth, (user) => {
@@ -52,7 +58,21 @@ const Header = () => {
       <img className="w-40" src={Netflix_Logo} alt="NetflixLogo" />
       {User && (
         <div className="flex">
-          <button onClick={handleShowSearchView}>SEARCH</button>
+          {GptSearch && (
+            <select
+              className="m-3 mx-3 p-2 bg-gray-800 text-white rounded-lg"
+              onChange={handleChangeLanguage}
+            >
+              {LANGUAGE_OPTIONS.map((lan) => (
+                <option key={lan.identifier} value={lan.identifier}>
+                  {lan.name}
+                </option>
+              ))}
+            </select>
+          )}
+          <button onClick={handleShowSearchView}>
+            {GptSearch ? "HOME" : "SEARCH"}
+          </button>
           <img />
           <button onClick={handelSignOut} className="bg-red-500">
             SignOut
