@@ -27,10 +27,16 @@
   - Custome hooks For Now Playing Movie 
   - Creating Movie Slice And Storing The Movie List Data 
   - Planning For Main and Secondary Container 
-  - Fetching Movie Trailer and Storing 
+  - Fetching Movie Trailer and Storing Using TMDB API
   - Creating MovieTrailer Slice And Store The Trailer Key 
   - Embebded YouTube Video With AutoPlay And Mute 
-  - Tailwind Css To Make Our Main Container Good  
+  - Tailwind Css To Make Our Main Container Good 
+  - Build Secondary Container  
+  - Movie LIST Component 
+  - Movie Cards Component 
+  - Fetching TMDB Link to Display The  Movie Crads By adding The Movie Poster Path
+  - Using Custome Hooks For All The Movie Lists 
+  
 
 
 

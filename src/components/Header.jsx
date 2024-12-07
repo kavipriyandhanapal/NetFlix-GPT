@@ -8,12 +8,19 @@ import { onAuthStateChanged } from "firebase/auth";
 import { addUser } from "../utils/redux/reduxslice/UserSlice";
 import { signOut } from "firebase/auth";
 import { Netflix_Logo } from "../utils/Constants";
+import { toggleGptPageView } from "../utils/redux/reduxslice/GPTSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const User = useSelector((store) => store.User);
   console.log(User);
+
+  const handleShowSearchView =()=>{    
+    dispatch(toggleGptPageView());
+    console.log('hi');
+    
+  }
 
   useEffect(() => {
     const unsubcribe = onAuthStateChanged(auth, (user) => {
@@ -41,15 +48,17 @@ const Header = () => {
   };
 
   return (
-    <div className=" w-screen absolute p-2 m-2 bg-gradient-to-b from-black justify-between flex z-20">
+    <div className=" w-screen absolute p-2 m-2 bg-gradient-to-b from-black/70 justify-between flex z-20">
       <img className="w-40" src={Netflix_Logo} alt="NetflixLogo" />
-
-      <div className="flex">
-        <img />
-        <button onClick={handelSignOut} className="bg-red-500">
-          SignOut
-        </button>
-      </div>
+      {User && (
+        <div className="flex">
+          <button onClick={handleShowSearchView}>SEARCH</button>
+          <img />
+          <button onClick={handelSignOut} className="bg-red-500">
+            SignOut
+          </button>
+        </div>
+      )}
     </div>
   );
 };
